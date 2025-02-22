@@ -1,7 +1,5 @@
-Sous Chef Chatbot  🤖
+Muley Hunt Planner
 ==============================
-
-Chatbot that recommends recipes and guides people through preparing it.
 
 ## 🔧 Setup
 1. This application runs with Python 3.11.
@@ -14,7 +12,6 @@ Chatbot that recommends recipes and guides people through preparing it.
    ```shell
    streamlit run Chat_1.py
    ```
-4. Enter the OpenAI API key then hit enter
 5. Follow the screen instructions
 
 

@@ -2,10 +2,8 @@
 #-e .
 
 # external requirements
-chromadb==0.4.22
-langchain==0.1.0
-pandas==2.0.3
-streamlit==1.30.0
+pandas
+streamlit
 plotly
 matplotlib
 seaborn

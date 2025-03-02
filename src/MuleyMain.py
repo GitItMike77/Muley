@@ -25,7 +25,11 @@ with st.container(border=True):
     col1.radio("Year",["2024","2023","2022"], horizontal=True)
     iStates = col2.segmented_control("States",[":blue[IDAHO]",":orange[MONTANA]",
                                                ":violet[WYOMING]",":gray[UTAH]",
-                                               ":green[COLORADO]"],selection_mode="multi")
+                                               ":green[COLORADO]"],
+                                     selection_mode="multi",
+                                     default=[":blue[IDAHO]",":orange[MONTANA]",
+                                               ":violet[WYOMING]",":gray[UTAH]",
+                                               ":green[COLORADO]"])
     st.divider()
     col4, col5, col6 = st.columns([4,1,4])
     iOdds = col4.slider("Draw Odds:", 0,100,(40,100))

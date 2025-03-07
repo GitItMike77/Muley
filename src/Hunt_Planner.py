@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-AppData = pd.read_csv('./data/AppData.csv')
+AppData = pd.read_csv('AppData.csv')
 AppData['UnitSelect'] = AppData['State']+' '+AppData['Unit']
 
 st.title(":deer: Mad at em Muley Hunt Planner :deer:")

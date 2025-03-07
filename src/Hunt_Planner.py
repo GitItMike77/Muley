@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+from io import StringIO
 
 # Configure browser tab text
 st.set_page_config(
@@ -9,7 +10,10 @@ st.set_page_config(
     layout="wide"
 )
 
-AppData = pd.read_csv('AppData.csv')
+url = 'https://raw.githubusercontent.com/GitItMike77/Muley/main/src/AppData.csv'
+response = requests.get(url)
+if response.status_code ==200:
+    AppData = pd.read_csv('AppData.csv')
 AppData['UnitSelect'] = AppData['State']+' '+AppData['Unit']
 
 st.title(":deer: Mad at em Muley Hunt Planner :deer:")

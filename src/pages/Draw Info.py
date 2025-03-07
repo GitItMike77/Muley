@@ -3,12 +3,18 @@ import streamlit as st
 st.title("Draw Information")
 st.markdown("### Idaho")
 st.markdown("""
-In Idaho, 
+In Idaho, nonresidents can buy general season tags over-the-counter. These tags go on sale each year some date
+in December, and sell out very fast. These general season tags allow you to hunt Mule Deer or Whitetails across
+the entire state, they are not specific to a unit.
+
+If you strike out on buying over-the-counter tags, they're is also a lottery drawing for "Controlled" hunts that
+you can apply for. Applications are due in June.
 """)
 
 st.markdown("### Montana")
 st.markdown("""
-In Montana, 
+In Montana, Nonresident must apply for a Combination (Either-Sex) General deer tag to be able to take a Mule Deer Buck.
+this application is drawn lottery style.
 """)
 
 st.markdown("### Wyoming")

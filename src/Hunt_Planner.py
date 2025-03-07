@@ -13,7 +13,7 @@ st.set_page_config(
 url = 'https://raw.githubusercontent.com/GitItMike77/Muley/main/src/AppData.csv'
 response = requests.get(url)
 if response.status_code ==200:
-    AppData = pd.read_csv('AppData.csv')
+    AppData = pd.read_csv(StringIO(response.text))
 AppData['UnitSelect'] = AppData['State']+' '+AppData['Unit']
 
 st.title(":deer: Mad at em Muley Hunt Planner :deer:")

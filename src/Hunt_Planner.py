@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 from io import StringIO
+import requests
 
 # Configure browser tab text
 st.set_page_config(

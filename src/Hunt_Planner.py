@@ -18,7 +18,7 @@ if response.status_code ==200:
 AppData['UnitSelect'] = AppData['State']+' '+AppData['Unit']
 
 st.title(":deer: Mad at em Muley Hunt Planner :deer:")
-with st.container(border=True):
+with st.expander("Mission Statement"):
     st.markdown("This application is summarizes harvest and drawing results report from various wildlife " +
                 "agencies, across the Great American West to assist you in selecting a unit to spend your " +
                 "hard earned Bitcoin toward. We do the hard work of interpreting the jargon from the agencies "+
@@ -106,5 +106,8 @@ with st. container(border=True):
 
 with st.container(border=True):
     iUnits = st.multiselect("Units:", AppData['UnitSelect'].dropna().drop_duplicates())
-    #if len(iUnits) > 0:
-        #SelData = SelData[SelData['UnitSelect'].isin(iUnits)]
+    if len(iUnits) > 0:
+        SelData = SelData[SelData['UnitSelect'].isin(iUnits)]
+
+with st.container(border=True):
+    st.dataframe(SelData,hide_index=True)

@@ -15,7 +15,7 @@ url = 'https://raw.githubusercontent.com/GitItMike77/Muley/main/src/AppData.csv'
 response = requests.get(url)
 if response.status_code ==200:
     AppData = pd.read_csv(StringIO(response.text))
-AppData['UnitSelect'] = AppData['State']+' '+AppData['Unit']
+AppData['UnitSelect'] = AppData['State']+' '+AppData['Unit']+' '+AppData['Region'].fillna('')
 
 st.title(":deer: Mad at em Muley Hunt Planner :deer:")
 with st.expander("Mission Statement"):
@@ -26,8 +26,7 @@ with st.expander("Mission Statement"):
                 "with the best odds of both drawing a tag (who's wants to dick around " +
                 "waiting to see if they were drawn) and harvesting a big 'ol Booner buck.")
 
-with st.container(border=True):
-    st.caption('FILTERING CRITERIA')
+with st.expander('Filtering Criteria'):
     col1, col2 = st.columns([4,5])
     iYear = col1.radio("Year",["2024","2023","2022"], horizontal=True, index=1)
     color_map = {'ID':'#4073FF',
@@ -61,8 +60,8 @@ with st.container(border=True):
     col4, col5, col6 = st.columns([4,1,4])
     iOdds = col4.slider("Draw Odds:", 0,100,(40,100))
     iBuck = col6.slider("Buck Success:", 0, 100, (30,100))
-    #st.divider()
-    # col7, col8, col9 = st.columns([4,1,4])
+    st.divider()
+    col7, col8, col9 = st.columns([4,1,4])
     # iSzn_earliest, iSzn_latest = col7.select_slider("Date Range for Opener:",
     #     options = ['9/1',
     #                '9/8',
@@ -79,7 +78,7 @@ with st.container(border=True):
     #                '11/20',
     #                '11/27'],
     #     value=['9/22', '11/10'])
-    # iCost = col9.slider("Cost:", 0, 1200, 600)
+    iCost = col9.slider("Cost:", 0, 1200, 800)
 
     # Down Filter to user's entries
     SelData = AppData
@@ -89,25 +88,46 @@ with st.container(border=True):
     SelData = SelData[SelData['Draw Odds-Zero'] <= float(iOdds[1]/100)]
     SelData = SelData[SelData['Buck_Success'] >= float(iBuck[0]/100)]
     SelData = SelData[SelData['Buck_Success'] <= float(iBuck[1]/100)]
+    SelData = SelData[SelData['App Cost']<=float(iCost)]
+    SelData['Pt Size'] = SelData['Harvest Quota'].fillna(1).replace(0,1)
 
 with st. container(border=True):
-    st.markdown("Hunter Success vs. Draw Odds")
+    st.markdown("Hunter Success vs. Draw Odds (@ Zero Pts)")
+    st.caption('Points sized relative to Harvest Quota for unit.')
     fig = px.scatter(SelData,
                      x='Buck_Success',
                      y='Draw Odds-Zero',
                      color='State',
+                     size = 'Pt Size',
                      color_discrete_map=color_map,
-                     hover_name='UnitSelect')
+                     hover_name='UnitSelect',
+                     hover_data={'Buck_Success': True,
+                                 'Draw Odds-Zero': True,
+                                 'State': False,
+                                 'Pt Size': False,
+                                 'Harvest Quota': True})
     fig.update_layout(
         xaxis=dict(range=[0,1.1]),
         yaxis=dict(range=[0,1.1])
     )
+
     st.plotly_chart(fig)
 
-with st.container(border=True):
-    iUnits = st.multiselect("Units:", AppData['UnitSelect'].dropna().drop_duplicates())
-    if len(iUnits) > 0:
-        SelData = SelData[SelData['UnitSelect'].isin(iUnits)]
+#with st.container(border=True):
+#    iUnits = st.multiselect("Units:", AppData['UnitSelect'].dropna().drop_duplicates())
+#    if len(iUnits) > 0:
+#        SelData = SelData[SelData['UnitSelect'].isin(iUnits)]
+
+#with st.container(border=True):
+
+
 
 with st.container(border=True):
-    st.dataframe(SelData,hide_index=True)
+    st.markdown("Data Table")
+    ShowData = SelData[['Year','State','Unit','Region', 'Draw Type',
+                        'Draw Odds-Zero','Buck_Success','ES_Success',
+                        'Active Hunters','Harvest Quota','Buck_Harvest',
+                        'App Deadline','App Cost']]
+    ShowData['Year']=ShowData['Year'].astype(str)
+    ShowData['App Cost'] = ShowData['App Cost'].apply(lambda x: f"${x:,.0f}")
+    st.dataframe(ShowData,hide_index=True)

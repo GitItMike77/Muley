@@ -3,7 +3,7 @@ from src import Route, WayPt
 import streamlit as st
 
 
-st.title("KML to GPX File Converter")
+st.title("KML->GPX File Converter")
 st.markdown("""
 Upload one or many KML files from Google Maps to have them converted to GPX format for import into GPS Devices
 """)

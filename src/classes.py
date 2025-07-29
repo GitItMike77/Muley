@@ -48,3 +48,7 @@ def get_routes_from_kml(file: str) -> List[Route]:
 # def get_waypts_from_kml(file: str) -> List[WayPt]:
 
 # def write_gpx(filename: str, save_to_directory: str, routes: List[Route], waypts: List[WayPt]):
+
+# <gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="Mad at Em Hunt Planner">
+# Write Data Here|
+# </gpx>

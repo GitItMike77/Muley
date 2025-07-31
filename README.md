@@ -9,6 +9,6 @@ Muley Hunt Planner
    ``` 
 3. Go to the src directory and start the app
    ```shell
-   streamlit run Hunt Planner.py
+   streamlit run Hunt_Planner.py
    ```
 5. Follow the screen instructions
